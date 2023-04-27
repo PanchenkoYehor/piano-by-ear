@@ -87,18 +87,22 @@
 
 import subprocess
 from pydub import AudioSegment
-from music21 import *
 import music21
+import random
+piano_notes = ['C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3']
+melody_notes = []
+wav_out = "tmp.wav"
 
 
 def generate_midi_by_notes(notes, durations, midi_out_path):
-    melody_stream = stream.Stream()
+    assert len(notes) == len(durations)
+    melody_stream = music21.stream.Stream()
 
-    for i in range(len(notes)):
-        current_note = music21.note.Note(notes[i], duration=duration.Duration(durations[i]))
+    for i, note in enumerate(notes):
+        current_note = music21.note.Note(note, duration=music21.duration.Duration(durations[i]))
         melody_stream.append(current_note)
 
-    midi_data = midi.translate.streamToMidiFile(melody_stream)
+    midi_data = music21.midi.translate.streamToMidiFile(melody_stream)
 
     midi_data.open(midi_out_path, 'wb')
     midi_data.write()
@@ -123,3 +127,22 @@ def midi_to_wav(midi_path, wav_path, soundfont_file=r"Roland_SC-88.sf2", mp3=Fal
         mp3_audio_tags = {"title": "Melody", "artist": "Me", "album": "My Album"}
         mp3_audio = AudioSegment.from_mp3(mp3_path)
         mp3_audio.export(mp3_path, format="mp3", tags=mp3_audio_tags)
+
+
+def generate_melody(range_begin, range_end, only_white_keys, number_of_notes=4):
+    ind_begin = piano_notes.index(range_begin)
+    ind_end = piano_notes.index(range_end)
+
+    global melody_notes
+    melody_notes = []
+    durations = []
+    while len(melody_notes) < number_of_notes:
+        current_note = piano_notes[random.randint(ind_begin, ind_end)]
+        if only_white_keys and '#' in current_note:
+            continue
+        melody_notes.append(current_note)
+        durations.append(2)
+
+    generate_midi_by_notes(melody_notes, durations, 'tmp.mid')
+    midi_to_wav('tmp.mid', 'tmp.wav')
+    return 'tmp.wav'

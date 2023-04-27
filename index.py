@@ -226,23 +226,18 @@ header input {
         </div>
       </header>
       <ul class="piano-keys">
-        <li class="key white" data-key="a"><span>a</span></li>
-        <li class="key black" data-key="w"><span>w</span></li>
-        <li class="key white" data-key="s"><span>s</span></li>
-        <li class="key black" data-key="e"><span>e</span></li>
-        <li class="key white" data-key="d"><span>d</span></li>
-        <li class="key white" data-key="f"><span>f</span></li>
-        <li class="key black" data-key="t"><span>t</span></li>
-        <li class="key white" data-key="g"><span>g</span></li>
-        <li class="key black" data-key="y"><span>y</span></li>
-        <li class="key white" data-key="h"><span>h</span></li>
-        <li class="key black" data-key="u"><span>u</span></li>
-        <li class="key white" data-key="j"><span>j</span></li>
-        <li class="key white" data-key="k"><span>k</span></li>
-        <li class="key black" data-key="o"><span>o</span></li>
-        <li class="key white" data-key="l"><span>l</span></li>
-        <li class="key black" data-key="p"><span>p</span></li>
-        <li class="key white" data-key=";"><span>;</span></li>
+        <li class="key white" data-key="C"><span>C</span></li>
+        <li class="key black" data-key="C#"><span>C#</span></li>
+        <li class="key white" data-key="D"><span>D</span></li>
+        <li class="key black" data-key="D#"><span>D#</span></li>
+        <li class="key white" data-key="E"><span>E</span></li>
+        <li class="key white" data-key="F"><span>F</span></li>
+        <li class="key black" data-key="F#"><span>F#</span></li>
+        <li class="key white" data-key="G"><span>G</span></li>
+        <li class="key black" data-key="G#"><span>G#</span></li>
+        <li class="key white" data-key="A"><span>A</span></li>
+
+
       </ul>
     </div>
         <script>

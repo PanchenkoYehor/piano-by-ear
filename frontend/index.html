@@ -1,0 +1,361 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #E3F2FD;
+    }
+
+    .wrapper {
+        padding: 35px 40px;
+        border-radius: 20px;
+        background: #141414;
+    }
+
+    .wrapper header {
+        display: flex;
+        color: #B2B2B2;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    header h2 {
+        font-size: 1.6rem;
+    }
+
+    header .column {
+        display: flex;
+        align-items: center;
+    }
+
+    header span {
+        font-weight: 500;
+        margin-right: 15px;
+        font-size: 1.19rem;
+    }
+
+    header input {
+        outline: none;
+        border-radius: 30px;
+    }
+
+    .volume-slider input {
+        accent-color: #fff;
+    }
+
+    .keys-checkbox input {
+        height: 30px;
+        width: 60px;
+        cursor: pointer;
+        appearance: none;
+        position: relative;
+        background: #4B4B4B
+    }
+
+    .keys-checkbox input::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #8c8c8c;
+        transform: translateY(-50%);
+        transition: all 0.3s ease;
+    }
+
+    .keys-checkbox input:checked::before {
+        left: 35px;
+        background: #fff;
+    }
+
+    .piano-keys {
+        display: flex !important;
+        list-style: none !important;
+        margin-top: 40px !important;
+    }
+
+    .piano-keys .key {
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+        text-transform: uppercase;
+    }
+
+    .piano-keys .black {
+        z-index: 2;
+        width: 44px;
+        height: 140px;
+        margin: 0 -22px 0 -22px;
+        border-radius: 0 0 5px 5px;
+        background: linear-gradient(#333, #000);
+    }
+
+    .piano-keys .black.active {
+        box-shadow: inset -5px -10px 10px rgba(255, 255, 255, 0.1);
+        background: linear-gradient(to bottom, #000, #434343);
+    }
+
+    .piano-keys .white {
+        height: 230px;
+        width: 70px;
+        border-radius: 8px;
+        border: 1px solid #000;
+        background: linear-gradient(#fff 96%, #eee 4%);
+    }
+
+    .piano-keys .white.active {
+        box-shadow: inset -5px 5px 20px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+    }
+
+    .piano-keys .key span {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        color: #A2A2A2;
+        font-size: 1.13rem;
+        text-align: center;
+    }
+
+    .piano-keys .key.hide span {
+        display: none;
+    }
+
+    .piano-keys .black span {
+        bottom: 13px;
+        color: #888888;
+    }
+
+    @media screen and (max-width: 815px) {
+        .wrapper {
+            padding: 25px;
+        }
+
+        header {
+            flex-direction: column;
+        }
+
+        header :where(h2, .column) {
+            margin-bottom: 13px;
+        }
+
+        .volume-slider input {
+            max-width: 100px;
+        }
+
+        .piano-keys {
+            margin-top: 20px;
+        }
+
+        .piano-keys .key:where(:nth-child(9), :nth-child(10)) {
+            display: none;
+        }
+
+        .piano-keys .black {
+            height: 100px;
+            width: 40px;
+            margin: 0 -20px 0 -20px;
+        }
+
+        .piano-keys .white {
+            height: 180px;
+            width: 60px;
+        }
+    }
+
+    @media screen and (max-width: 615px) {
+        .piano-keys .key:nth-child(13),
+        .piano-keys .key:nth-child(14),
+        .piano-keys .key:nth-child(15),
+        .piano-keys .key:nth-child(16),
+        .piano-keys .key :nth-child(17) {
+            display: none;
+        }
+
+        .piano-keys .white {
+            width: 50px;
+        }
+    }
+</style>
+
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Playable Piano JavaScript | CodingNepal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <h2>Playable PIANO</h2>
+        <div class="column volume-slider">
+            <span>Volume</span><input type="range" min="0" max="1" value="0.5" step="any">
+        </div>
+        <div class="column keys-checkbox">
+            <span>Show Keys</span><input type="checkbox" checked>
+        </div>
+    </header>
+    <ul class="piano-keys">
+        <li class="key white" data-key="C3"><span>C3</span></li>
+        <li class="key black" data-key="C#3"><span>C#</span></li>
+        <li class="key white" data-key="D3"><span>D</span></li>
+        <li class="key black" data-key="D#3"><span>D#</span></li>
+        <li class="key white" data-key="E3"><span>E</span></li>
+        <li class="key white" data-key="F3"><span>F</span></li>
+        <li class="key black" data-key="F#3"><span>F#</span></li>
+        <li class="key white" data-key="G3"><span>G</span></li>
+        <li class="key black" data-key="G#3"><span>G#</span></li>
+        <li class="key white" data-key="A3"><span>A</span></li>
+        <li class="key black" data-key="A#3"><span>A#</span></li>
+        <li class="key white" data-key="B3"><span>B</span></li>
+        <li class="key white" data-key="C4"><span>C</span></li>
+        <li class="key black" data-key="C#4"><span>C#</span></li>
+        <li class="key white" data-key="D4"><span>D</span></li>
+        <li class="key black" data-key="D#4"><span>D#</span></li>
+        <li class="key white" data-key="E4"><span>E</span></li>
+        <li class="key white" data-key="F4"><span>F</span></li>
+    </ul>
+</div>
+<script>
+
+    const SET_COMPONENT_VALUE = "streamlit:setComponentValue"
+    const RENDER = "streamlit:render"
+    const COMPONENT_READY = "streamlit:componentReady"
+    const SET_FRAME_HEIGHT = "streamlit:setFrameHeight"
+
+    function _sendMessage(type, data) {
+        // copy data into object
+        var outData = Object.assign({
+            isStreamlitMessage: true,
+            type: type,
+        }, data)
+
+        if (type == SET_COMPONENT_VALUE) {
+            console.log("_sendMessage data: " + JSON.stringify(data))
+            console.log("_sendMessage outData: " + JSON.stringify(outData))
+        }
+
+        window.parent.postMessage(outData, "*")
+    }
+
+    function initialize(pipeline) {
+
+        // Hook Streamlit's message events into a simple dispatcher of pipeline handlers
+        window.addEventListener("message", (event) => {
+            if (event.data.type == RENDER) {
+                // The event.data.args dict holds any JSON-serializable value
+                // sent from the Streamlit client. It is already deserialized.
+                pipeline.forEach(handler => {
+                    handler(event.data.args)
+                })
+            }
+        })
+
+        _sendMessage(COMPONENT_READY, {apiVersion: 1});
+
+        window.addEventListener("load", () => {
+            window.setTimeout(function () {
+                setFrameHeight(document.documentElement.clientHeight)
+            }, 0)
+        })
+    }
+
+    function setFrameHeight(height) {
+        _sendMessage(SET_FRAME_HEIGHT, {height: height})
+    }
+
+    // The `data` argument can be any JSON-serializable value.
+    function notifyHost(data) {
+        _sendMessage(SET_COMPONENT_VALUE, data)
+    }
+
+
+    const pianoKeys = document.querySelectorAll(".piano-keys .key"),
+        volumeSlider = document.querySelector(".volume-slider input"),
+        keysCheckbox = document.querySelector(".keys-checkbox input");
+
+    let allKeys = [],
+        audio = new Audio(`http://127.0.0.1:8887/tunes/a.wav`); // by default, audio src is "a" tune
+    // audio = new Audio(`tunes/a.wav`); // by default, audio src is "a" tune
+
+    const playTune = (key) => {
+        function getRandomInt(max) {
+          return Math.floor(Math.random() * max);
+        }
+        // let randInt = getRandomInt(3);
+        // if (randInt === 0) {
+        //     key = 'a'
+        // } else {
+        //     key = 'b'
+        // }
+        audio.src = `http://127.0.0.1:8887/tunes/${key}.wav`; // passing audio src based on key pressed 
+        // audio.src = `$tunes/{key}.wav`; // passing audio src based on key pressed 
+        // audio.src = 'melody_roland.wav';
+        audio.play(); // playing audio
+
+        const clickedKey = document.querySelector(`[data-key="${key}"]`); // getting clicked key element
+        clickedKey.classList.add("active"); // adding active class to the clicked key element
+        setTimeout(() => { // removing active class after 150 ms from the clicked key element
+            clickedKey.classList.remove("active");
+        }, 150);
+    }
+
+    pianoKeys.forEach(key => {
+        allKeys.push(key.dataset.key); // adding data-key value to the allKeys array
+        // calling playTune function with passing data-key value as an argument
+        key.addEventListener("click", () => playTune(key.dataset.key));
+    });
+
+    const handleVolume = (e) => {
+        audio.volume = e.target.value; // passing the range slider value as an audio volume
+    }
+
+    const showHideKeys = () => {
+        // toggling hide class from each key on the checkbox click
+        pianoKeys.forEach(key => key.classList.toggle("hide"));
+    }
+
+    const pressedKey = (e) => {
+        // if the pressed key is in the allKeys array, only call the playTune function
+        if (allKeys.includes(e.key)) playTune(e.key);
+    }
+
+    keysCheckbox.addEventListener("click", showHideKeys);
+    volumeSlider.addEventListener("input", handleVolume);
+    document.addEventListener("keydown", pressedKey);
+
+    // Set initial value sent from Streamlit!
+    function initializeProps_Handler(props) {
+        // if (keysCheckbox.value == "") {
+        //   keysCheckbox.value = props.initial_state.message
+        // }
+    }
+
+    // Access values sent from Streamlit!
+    function dataUpdate_Handler(props) {
+        // msgLabel.innerText = `Update [${props.counter}] at ${props.datetime}`
+    }
+
+    // Simply log received data dictionary
+    function log_Handler(props) {
+        console.log("Received from Streamlit: " + JSON.stringify(props))
+    }
+
+    let pipeline = [initializeProps_Handler, dataUpdate_Handler, log_Handler]
+    initialize(pipeline)
+</script>
+
+</body>
+</html>
